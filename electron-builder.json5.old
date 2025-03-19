@@ -1,0 +1,57 @@
+/**
+ * @see https://www.electron.build/configuration/configuration
+ */
+{
+  $schema: "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
+  appId: "com.electron.waterctl_auto",
+  asar: false,
+  productName: "waterctl-electron",
+  directories: {
+    output: "release/${version}",
+  },
+  files: ["dist", "dist-electron"],
+  mac: {
+    // target: ["dmg"],
+    identity: null, // 禁用签名
+    artifactName: "${productName}-Mac-${version}-Installer.${ext}",
+  },
+  win: {
+    // icon: "./public/favicon.ico", //windows下应用的图标
+    // target: [
+    //   {
+    //     target: ["msi", "nsis", "portable", "squirrel", "nsis-web"],
+    //     arch: ["x64", "ia32", "armv7l", "arm64", "universal"],
+    //   },
+    // ],
+    verifyUpdateCodeSignature: false, // 这里如果不设置为false，后续更新的时候会验证签名，所以需要设置为false
+    artifactName: "${productName}-Windows-${version}-Setup.${ext}",
+  },
+  nsis: {
+    oneClick: false,
+    perMachine: false,
+    allowToChangeInstallationDirectory: true,
+    // installerIcon: "./public/favicon.ico", // 安装图标
+    // uninstallerIcon: "./public/favicon.ico", //卸载图标
+    // installerHeaderIcon: "./public/favicon.ico", // 安装时头部图标
+    createDesktopShortcut: true, // 创建桌面图标
+  },
+  linux: {
+    // target: [
+    //   {
+    //     target: ["AppImage", "snap", "flatpak", "deb", "rpm", "tar.xz", "tar.gz"],
+    //     arch: ["x64", "ia32", "armv7l", "arm64", "universal"],
+    //   },
+    // ],
+    artifactName: "${productName}-Linux-${version}.${ext}",
+  },
+  publish: [
+    {
+      provider: "github", //打包上传到github
+      owner: "E7G", //仓库所有者
+      repo: "waterctl_auto", //仓库名称
+      private: false, //若是私有仓库，则将私有设置为true，同时添加token，反之不需要设置
+      //token: "***", //github的私有token
+      //releaseType: "release", //上传到github的版本类型（draft:草稿，prerelease:提前发行版，release:发行版）
+    },
+  ],
+}

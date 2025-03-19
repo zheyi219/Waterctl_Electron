@@ -1,0 +1,92 @@
+# electron-builder.yml
+
+appId: com.e7g.waterctlElectron
+productName: WaterCtl Electron
+copyright: Copyright © 2024 E7G. All rights reserved.
+
+directories:
+  output: release/
+  buildResources: build_resources
+
+files:
+  - "dist/**/*"
+  - "dist-electron/**/*"
+  - "!**/node_modules/**/*"
+  - "!**/.vscode"
+  - "!**/*.map"
+
+#asar: false
+npmRebuild: false # 禁用自动重新构建原生模块
+
+# 多平台配置
+mac:
+  category: public.app-category.utilities
+  target:
+    - target: dmg
+      arch:
+        - x64
+        - arm64
+    - target: zip
+      arch: universal # 通用二进制格式
+  hardenedRuntime: true # 启用强化运行时
+  entitlements: build_resources/entitlements.mac.plist
+  minimumSystemVersion: "10.15" # 支持Catalina及以上
+  identity: null
+
+win:
+  icon: "public/logo512.png"
+  target:
+    - nsis
+    - portable
+    - msi
+    - squirrel
+    - nsis-web
+  verifyUpdateCodeSignature: false
+  sign: false
+
+linux:
+  target:
+    # - AppImage
+    - deb
+    - snap
+    # - flatpak
+    - rpm
+    - tar.xz
+    - tar.gz
+  maintainer: E7G <3394611759@qq.com>
+  category: Utility
+  packageCategory: utils
+
+# 自动发布到GitHub
+publish:
+  provider: github
+  owner: E7G
+  repo: waterctl_auto
+  # token: $GH_TOKEN                   # 通过环境变量注入 Token
+  releaseType: release
+  publishAutoUpdate: true
+  publish: always  # 关键配置
+
+# 构建优化配置
+extraMetadata:
+  buildNumber: ${env.BUILD_NUMBER}
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: always
+  menuCategory: true
+
+
+
+dmg:
+  window:
+    width: 540
+    height: 380
+  contents:
+    - name: Applications
+      path: /Applications
+      type: link
+      x: 410
+      y: 190

@@ -1,0 +1,93 @@
+appId: com.e7g.waterctlElectron
+productName: WaterCtl Electron
+directories:
+  output: release/
+  buildResources: build
+files:
+  - "!**/.vscode/*"
+  - "!src/*"
+  - "!electron.vite.config.{js,ts,mjs,cjs}"
+  - "!{.eslintignore,.eslintrc.cjs,.prettierignore,.prettierrc.yaml,dev-app-update.yml,CHANGELOG.md,README.md}"
+  - "!{.env,.env.*,.npmrc,pnpm-lock.yaml}"
+  - "!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}"
+  - "dist/**/*"
+  - "dist-electron/**/*"
+  - "!**/node_modules/**/*"
+  - "!**/*.map"
+asarUnpack:
+  - resources/**
+
+win:
+  executableName: waterctl-Electron
+  icon: "public/logo512.png"
+  target:
+    - target: nsis
+      # arch:
+      #   - ia32
+      #   - x64
+      #   - arm64
+    - target: portable
+      # arch:
+      #   - ia32
+      #   - x64
+      #   - arm64
+    - msi
+    - squirrel
+    - target: nsis-web
+      arch:
+        - ia32
+        - x64
+        - arm64
+
+nsis:
+  shortcutName: ${productName}
+  uninstallDisplayName: ${productName}
+  createDesktopShortcut: always
+squirrelWindows:
+  artifactName: ${productName} Squirrel Setup ${version}.${ext}
+
+mac:
+  icon: "public/logo512.png"
+  entitlementsInherit: build/entitlements.mac.plist
+  extendInfo:
+    - NSCameraUsageDescription: Application requests access to the device's camera.
+    - NSMicrophoneUsageDescription: Application requests access to the device's microphone.
+    - NSDocumentsFolderUsageDescription: Application requests access to the user's Documents folder.
+    - NSDownloadsFolderUsageDescription: Application requests access to the user's Downloads folder.
+linux:
+  icon: "public/logo512.png"
+  target:
+    - target: AppImage
+      # arch:
+      #   - x64
+      #   - arm64
+      #   - armv7l
+    - target: snap
+      # arch:
+      #   - x64
+      #   - arm64
+      #   - armv7l
+    # - flatpak
+    - deb
+    - rpm
+    # - pacman
+    - target: tar.xz
+      arch:
+        - x64
+        - arm64
+        - armv7l
+    - target: tar.gz
+      arch:
+        - x64
+        - arm64
+        - armv7l
+  maintainer: E7G <3394611759@qq.com>
+  category: Utility
+  packageCategory: utils
+npmRebuild: false
+# publish:
+#   provider: github
+#   repo: E7G/waterctl_auto
+#   owner: E7G
+#   token: $GITHUB_TOKEN
+#   draft: true

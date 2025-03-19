@@ -1,0 +1,50 @@
+{
+  "name": "waterctl_electron",
+  "private": true,
+  "version": "2.1.2",
+  "type": "module",
+  "main": "dist-electron/main.js",
+  "author": "E7G <3394611759@qq.com>",
+  "license": "MIT",
+  "description": "electron waterctl_auto",
+  "homepage": "https://github.com/E7G/Waterctl_Electron",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/E7G/Waterctl_Electron"
+  },
+  "scripts": {
+    "compile-wasm": "wat2wasm ./src/deputy.wat -o ./src/deputy.wasm",
+    "dev": "npm run compile-wasm && vite ",
+    "build": "npm run compile-wasm && tsc && vite build ",
+    "preview": "vite preview",
+    "test": "vitest",
+    "postinstall": "node node_modules/electron/install.js",
+    "release": "electron-builder",
+    "build:win": "npm run build && electron-builder --win --config --publish never",
+    "build:mac": "npm run build && electron-builder --mac --config --publish never",
+    "build:linux": "npm run build && electron-builder --linux --config --publish never"
+  },
+  "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^6.0.0",
+    "@types/web-bluetooth": "^0.0.21",
+    "electron": "^35.0.0",
+    "electron-builder": "^25.1.8",
+    "electron-updater": "^6.3.9",
+    "typescript": "^5.8.2",
+    "update-electron-app": "^3.1.1",
+    "vite": "^6.2.0",
+    "vite-plugin-electron": "^0.29.0",
+    "vite-plugin-html": "^3.2.2",
+    "vite-plugin-singlefile": "^2.1.0",
+    "vitest": "^3.0.7",
+    "wabt": "^1.0.37"
+  },
+  "dependencies": {
+    "water.css": "^2.1.1"
+  },
+  "config": {
+    "electron": {
+      "mirror": "https://registry.npmmirror.com/-/binary/electron/"
+    }
+  }
+}
