@@ -1,7 +1,7 @@
 {
   "name": "waterctl_electron",
   "private": true,
-  "version": "2.1.2",
+  "version": "2.1.4",
   "type": "module",
   "main": "dist-electron/main.js",
   "author": "E7G <3394611759@qq.com>",
